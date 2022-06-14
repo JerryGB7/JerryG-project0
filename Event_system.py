@@ -5,12 +5,7 @@ import pickle
 import os
 from Class_management import Enemy
 
-data_exists = os.path.isfile("test.pickle")
-if data_exists:
-    with open(f'test.pickle', 'rb') as f2:
-        player = pickle.load(f2)
-
-def random_encounter():
+def random_encounter(player):
     chance = randint(1, 11)
     if chance in range(1,11):
         enemy_names = ["RatMan", "SkinCrawler", "SnakeFingers"]
@@ -18,7 +13,7 @@ def random_encounter():
         print(f"You encountered a {encounter} while walking down the alley!\nPrepare for battle!")
     start_battle(player, encounter)   
 
-def gym_option():
+def gym_option(player):
     os.system('cls')
     print(f"Current power: {player.power}, Gold: {player.gold}")
     if player.gold < 40:
@@ -42,15 +37,15 @@ def library_option():
 def shop_option():
     pass
 
-def sleep_option():
+def sleep_option(player):
     d = input(f"""
     The number of days is {player.day}, would you like to move on to the next? y/n
     """)
     if d == 'y':
         player.day += 1
-        if player.energy >= player.maxenergy - 499:
+        if player.energy >= player.maxenergy - 100:
             player.energy == player.maxenergy
-        elif player.energy < player.maxenery - 500:
+        elif player.energy < player.maxenergy - 500:
             player.energy += 500
         with open(f'test.pickle', 'wb') as f:
                 pickle.dump(player, f)
@@ -72,12 +67,11 @@ def start_battle(player, enemy):
         HP: {player.energy}
         {player.hero_name}
                                                                                    
-
-                                            
+                            
                                              -----------------------                                    
                                             | 1) Attack
-                                            | 2) Block  
-                                            | 3) Item  
+                                            | 2) Ability  
+                                            | 3) Utility  
                                             | 4) Run   
                                              ----------------------- 
         """)
@@ -88,7 +82,7 @@ def start_battle(player, enemy):
             if n.hp - attack <= 0:
                 gain_gold = random.choice(range(n.gold -5, n.gold + 5))
                 player.gold += gain_gold 
-                print(f"{player.name} finished off {n.name} with {random.choice(player.moves)}")
+                print(f"{player.name} defeated {n.name} with {random.choice(player.moves)}")
                 print(f"The battle is over, {player.name} has won!")
                 print(f"{n.name} dropped {gain_gold} gold")
                 with open(f'test.pickle', 'wb') as f:

@@ -73,23 +73,27 @@ while True:
     os.system('cls')
     with open(f'test.pickle', 'rb') as f2:
         player = pickle.load(f2)
+    
+    if player.energy <=0:
+        break
+
     print(f"""
     ---------------------------------------------------------------------------
     |Hero name: {player.hero_name}| 
     Current energy: {player.energy} / Current gold: ${player.gold} / Current day: {player.day}
-    ---------------------------------------------------------------------------
-    """)
+    ---------------------------------------------------------------------------""")
+    
     d = decision()
     if d == '1':
-        Event_system.random_encounter()
+        Event_system.random_encounter(player)
     elif d == "2":
-        Event_system.gym_option()
+        Event_system.gym_option(player)
     elif d == "3":
         Event_system.library_option()
     elif d == "4":
         Event_system.shop_option()
     elif d == "5":
-        Event_system.sleep_option()
+        Event_system.sleep_option(player)
     elif d == 'd':
         os.remove("test.pickle")
         print("Data has been deleted. Run the file again to start over!")
@@ -102,4 +106,5 @@ while True:
         time.sleep(1)
         continue    
 
-
+if player.energy <= 0:
+    print("Unfortunately your life force has depleted. The game is over ...")

@@ -2,7 +2,7 @@ class Player:
     def __init__(self, name, id):
         self.name = name
         self.id = id
-        self.maxenergy = 1000
+        self.maxenergy = 2000
         self.power = 0
         self.mana = 0
         self.hero_name = ''
