@@ -52,7 +52,7 @@ In this section you will be able to choose your own quirk to fight small enemies
         with open(f'test.pickle', 'wb') as f:
             pickle.dump(new_player, f)
         return new_player      
-
+temp = start_load()
 # Function that displays player options and returns the number selected
 def decision(): 
     d = input(f"""
