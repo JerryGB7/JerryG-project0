@@ -17,16 +17,16 @@ class Player:
             self.hero_name = "Bird Breathless"
             self.moves = ["Flying kick", "Aerial tackle", "Egg drop", "Deep Breath"]
         elif id == 2:
-            self.energy = 700
-            self.power = 150
-            self.mana = 100
+            self.energy = 1200
+            self.power = 80
+            self.mana = 130
             self.hero_name = "Contact 0"
             self.moves = ["Rock barrage", "Precision shot", "Leg sweep", "E crash"]
         elif id == 3:
-            self.energy = 1300
-            self.power = 90
-            self.mana = 100 
-            self.hero_name = "Flare"
+            self.energy = 700
+            self.power = 180
+            self.mana = 30 
+            self.hero_name = "Nova Flare"
             self.moves = ["Drop kick", "Clothesline", "Suplex", "Flare up!"]
 
 

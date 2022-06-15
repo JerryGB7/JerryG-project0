@@ -1,12 +1,13 @@
 import random
-from random import randint
 import time
-import pickle
 import os
 from Class_management import Enemy
+import save_and_load
+
 
 def random_encounter(player):
-    chance = randint(1, 11)
+    chance = random.randint(1, 10)
+    print(chance)
     if chance in range(1,11):
         enemy_names = ["RatMan", "SkinCrawler", "SnakeFingers"]
         encounter = random.choice(enemy_names)
@@ -26,16 +27,17 @@ def gym_option(player):
             player.power += 20
             player.gold -= 40
             player.energy -= random.choice(range(100, 200))
-            with open(f'test.pickle', 'wb') as f:
-                    pickle.dump(player, f)
+            save_and_load.save_data(player)
         else:
             return
 
-def library_option():
-    pass
+def library_option(player):
+    print("Closed of renovations, but when we open you will be able to learn abilities and increase your magic powers!")
+    time.sleep(4)
 
 def shop_option():
-    pass
+    print("Shop will be opening soon. We will be selling all kinds of utility!")
+    time.sleep(4)
 
 def sleep_option(player):
     d = input(f"""
@@ -47,22 +49,15 @@ def sleep_option(player):
             player.energy == player.maxenergy
         elif player.energy < player.maxenergy - 500:
             player.energy += 500
-        with open(f'test.pickle', 'wb') as f:
-                pickle.dump(player, f)
+        save_and_load.save_data(player)
         return
     else:
         return 
 
-def start_battle(player, enemy):
-    n = Enemy(enemy)
-    n.get_small_enemy(n.name)
-    time.sleep(2)
-    os.system('cls')
-    battling = True
-    while battling:
-        print(f"""
-                                                                                       HP: {n.hp}
-                                                                                       {n.name}
+def print_battle_UI(player, enemy):
+    print(f"""
+                                                                                       HP: {enemy.hp}
+                                                                                       {enemy.name}
                                                     vs                                 
         HP: {player.energy}
         {player.hero_name}
@@ -75,19 +70,27 @@ def start_battle(player, enemy):
                                             | 4) Run   
                                              ----------------------- 
         """)
+
+def start_battle(player, enemy):
+    n = Enemy(enemy)
+    n.get_small_enemy(n.name)
+    time.sleep(2)
+    os.system('cls')
+    battling = True
+    while battling:
+        print_battle_UI(player, n)
         option = input()
         if option == '1':
-            attack = randint(player.power - 5, player.power + 5)
-            enemy_attack = randint(n.pw - 5, n.pw +5)
+            attack = random.randint(player.power - 5, player.power + 5)
+            enemy_attack = random.randint(n.pw - 5, n.pw +5)
             if n.hp - attack <= 0:
                 gain_gold = random.choice(range(n.gold -5, n.gold + 5))
                 player.gold += gain_gold 
                 print(f"{player.name} defeated {n.name} with {random.choice(player.moves)}")
                 print(f"The battle is over, {player.name} has won!")
                 print(f"{n.name} dropped {gain_gold} gold")
-                with open(f'test.pickle', 'wb') as f:
-                    pickle.dump(player, f)
-                time.sleep(2)
+                save_and_load.save_data(player)
+                b = input("Press enter to continue...")
                 break
             print(f"You used {random.choice(player.moves)}.\nYou dealt {attack}!")
             print(f"{n.name} attacked you with {random.choice(n.moves)}. \nThey dealt {enemy_attack}")
