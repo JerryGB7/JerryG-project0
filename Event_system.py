@@ -31,6 +31,8 @@ def gym_option(player):
             player.gold -= 40
             player.energy -= random.choice(range(100, 200))
             sl.save_data(player)
+            print("You trained hard while at the gym and your power has increased! You lost a bit of energy however.")
+            i  = input("Press ENTER to continue...")
         else:
             return
 
@@ -45,10 +47,10 @@ def bookshop_option(player):
         d = input(f"You have arrived at the bookstore, would you like to study? y/n ")
         if d == 'y':
             player.mana += 1
-            print("You gained 1 mana.")
+            print("You have increased your mental capacity. You gained 1 mana.")
             player.gold -= 20
             player.energy -= random.choice(range(50, 100))
-            rand = random.randint(1, 5)
+            rand = random.randint(1, 10)
             if len(list_of_abilities) > 0:
                 randAbility = random.choice(list_of_abilities)
             else:
@@ -58,9 +60,10 @@ def bookshop_option(player):
                 print("Congratulations you learned a new ability!")
                 player.abilities.append(randAbility)
                 list_of_abilities.remove(randAbility)
-            i = input("Press ENTER to continue")    
+            i = input("Press ENTER to continue...")    
             sl.save_data(player)
         else:
+            input("Returning to city.")
             return
 
 def shop_option():
@@ -79,6 +82,8 @@ def sleep_option(player):
             player.energy += 500
         player.health += 500
         sl.save_data(player)
+        print("You slept through the night peacefully. Your energy and health were restored!")
+        i = input("Press ENTER to continue...")
         return
     else:
         return 
@@ -97,15 +102,18 @@ def print_battle_UI(player, enemy, turn):
                                             | 2) Ability  
                                             | 3) Utility  
                                             | 4) Run   
-                                             ----------------------- 
-        """)
+                                             ----------------------- """)
 
 def print_ability_list(player):
+    print("""------------Abilities------------""")
     if len(player.abilities) == 0:
         print("You have not learned any abilities.")
         i = input("Press to continue ...")
     for i, elem in enumerate(player.abilities):
-        print(f"{i+1}) {elem.name}")
+        print(f"""-------------------------
+|{i+1}) {elem.name}
+-------------------------"""
+        )
 
 def start_battle(player, enemy):
     time.sleep(2)
@@ -128,6 +136,13 @@ def start_battle(player, enemy):
                 b = input(f"You used 100 energy to fight. Press enter to continue...")
                 enemy.hp = enemy.maxhp
                 break
+            elif player.health - enemy_attack <= 0:
+                print("Your health is at a critical level! One of our pro heroes will extract you from this battle, you will lose money and days to recover in the infirmary.")
+                player.gold -= random.choice(range(10, 50))
+                player.energy = 1000
+                player.days += 3
+                sl.save_data(player)
+                break
             print(f"You used {random.choice(player.moves)}.\nYou dealt {attack}!")
             print(f"{enemy.name} attacked you with {random.choice(enemy.moves)}. \nThey dealt {enemy_attack}")
             enemy.hp -= attack
@@ -136,7 +151,13 @@ def start_battle(player, enemy):
             time.sleep(2)
         elif option == '2':
             print_ability_list(player)
-            turn += 1
+            i = input("")
+            i = int(i) - 1
+            if i in range(0, len(player.abilities)):
+                print(f"you used {player.abilities[i].name}")
+                turn += 1
+            else:
+                print("Not an option.")
             time.sleep(1)
         elif option == '3':
             turn += 1

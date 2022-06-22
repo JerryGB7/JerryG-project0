@@ -45,10 +45,10 @@ class Enemy:
         self.moves = moves
 
 ratman = Enemy("Ratman", 500, 500, 50, 30, moves=["Rat rush", "Bite", "Tail whip"])
-snake = Enemy("SnakeFingers", 400, 400, 40, 50, moves=["Rat rush", "Bite", "Tail whip"])
-skin = Enemy("SkinCrawler", 300, 300, 30, 10, moves=["Rat rush", "Bite", "Tail whip"])
-wolf = Enemy("WolfWalker", 1200, 1200, 100, 120, moves=["Rat rush", "Bite", "Tail whip"])
-spring = Enemy("SpringKicker", 1500, 1500, 130, 100, moves=["Rat rush", "Bite", "Tail whip"])
+snake = Enemy("SnakeFingers", 400, 400, 40, 50, moves=["Slithering wrap", "Bite", "Poison breath"])
+skin = Enemy("SkinCrawler", 300, 300, 30, 10, moves=["Glare", "Wrap", "Shadow claw"])
+wolf = Enemy("WolfWalker", 1200, 1200, 100, 120, moves=["Pack takedown", "Trample", "Group bite"])
+spring = Enemy("SpringKicker", 1500, 1500, 130, 100, moves=["Spring kick", "High jump", "Whirl kick"])
 scorch = Enemy("Scorcher", 2000, 2000, 200, 250, moves=["Blaze", "Roast", "Flamethrower"])
 
 

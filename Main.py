@@ -56,13 +56,13 @@ def start_or_load():
 start_or_load()
 # Function that displays player options and returns the number selected
 def decision(): 
-    d = input(f"""
-    What would you like to do? Type the number next to the action you want to do.
+    d = input(f"""    What would you like to do? Type the number next to the action you want to do.
     1) Find a random bad guy to fight. 
     2) Spend $40 to strength train at the gym. 
     3) Spend $20 to study at the library.
     4) Go to shop.
     5) Sleep to gain energy.
+    ----------------------------------------------
     i) View your character info.
     d) Delete Save Data.
     e) Exit.
@@ -115,6 +115,5 @@ def main():
             print("Not an option. Please try again")
             time.sleep(1)
             continue   
-
 
 main()
